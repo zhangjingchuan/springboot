@@ -7,6 +7,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.Charset;
 
@@ -14,6 +15,7 @@ import java.nio.charset.Charset;
  * 创建自定义助手类
  */
 //SimpleChannelInboundHandler:对于请求来讲，其实相当于入站，入境
+@Slf4j
 public class CustomHandler extends SimpleChannelInboundHandler<HttpObject> {
 
     @Override
@@ -23,8 +25,7 @@ public class CustomHandler extends SimpleChannelInboundHandler<HttpObject> {
 
         if(msg instanceof HttpRequest) {
             //显示客户端的远程地址
-            System.out.println(channel.remoteAddress());
-
+            log.info(channel.remoteAddress().toString());
             //定义发送的数据消息
             ByteBuf content = Unpooled.copiedBuffer("hello netty", CharsetUtil.UTF_8);
             //构建一个http response
